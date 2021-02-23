@@ -8,7 +8,8 @@ namespace ShoppingCartMicroService.Models
     /*
      * Interface of the items one can place into basket.
      */
-    public interface IItem
+    public class Item
     {
+        public string Name { get; set; }
     }
 }

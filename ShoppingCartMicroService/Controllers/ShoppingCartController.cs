@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using ShoppingCartMicroService.Models;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ShoppingCartMicroService.Controllers
 {
@@ -10,34 +12,39 @@ namespace ShoppingCartMicroService.Controllers
     public class ShoppingCartController : ControllerBase
     {
         private readonly ILogger<ShoppingCartController> _logger;
+        private readonly ShoppingCart _cart;
 
         public ShoppingCartController(ILogger<ShoppingCartController> logger)
         {
             _logger = logger;
+            _cart = new ShoppingCart();
         }
 
         [HttpGet]
-        public IShoppingCart Cart()
+        public ReadOnlyDictionary<Item, int> Basket()
         {
-            throw new NotImplementedException();
+            return new ReadOnlyDictionary<Item, int>(_cart.Basket);
         }
 
         [HttpPost]
-        public void AddItem(IItem item)
+        public void AddItem(Item item)
         {
-            throw new NotImplementedException();
+            _cart.Basket.Add(item, 1);
         }
 
         [HttpDelete]
-        public void RemoveItem(IItem item)
+        public bool RemoveItem(Item item)
         {
-            throw new NotImplementedException();
+            return _cart.Basket.Remove(item);
         }
 
         [HttpPut]
-        public void ChangeQuantity(IItem item, int quantity)
+        public bool ChangeQuantity(Item item, int quantity)
         {
-            throw new NotImplementedException();
+            if (!_cart.Basket.ContainsKey(item)) { return false; }
+
+            _cart.Basket[item] = quantity;
+            return true;
         }
     }
 }

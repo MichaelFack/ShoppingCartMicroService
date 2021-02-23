@@ -5,16 +5,12 @@ using System.Threading.Tasks;
 
 namespace ShoppingCartMicroService.Models
 {
-    public interface IShoppingCart
+    public class ShoppingCart
     {
-        int id { get; }
-        Dictionary<IItem, int> Basket { get; }
-    }
-
-    class ShoppingCart : IShoppingCart
-    {
-        public int id => throw new NotImplementedException();
-
-        public Dictionary<IItem, int> Basket => throw new NotImplementedException();
+        public ShoppingCart()
+        {
+            Basket = new Dictionary<Item, int>();
+        }
+        public Dictionary<Item, int> Basket { get; }
     }
 }
