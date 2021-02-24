@@ -7,10 +7,20 @@ namespace ShoppingCartMicroService.Models
 {
     public class ShoppingCart
     {
+        public int Id { get; set; }
         public ShoppingCart()
         {
-            Basket = new Dictionary<Item, int>();
+            Basket = new List<ShoppingCartEntry>();
         }
-        public Dictionary<Item, int> Basket { get; }
+        public List<ShoppingCartEntry> Basket { get; }
+    }
+
+    public class ShoppingCartEntry
+    {
+        public int Id { get; set; }
+        public Item Item { get; set; }
+        public int Quantity { get; set; }
+
+        public ShoppingCartEntry() { /* Empty! */ }
     }
 }
